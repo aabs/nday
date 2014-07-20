@@ -1,0 +1,11 @@
+﻿# ignore this
+{facebook}{2014-07-18 12:31:23}{I did something very important, honestly!!!}{blah, blah blah}
+{facebook}{2014-07-19 12:31:23}{I also did something very important, honestly!!!}{blah, blah blah}
+
+# ignore this also
+{tasks}{2014-07-18 12:31:23}{I did something very important, in wunderlist?}{@done}
+{tasks}{2014-07-19 12:31:23}{I also did something very important, in wunderlist?}{@done}
+
+{linkedin}{2014-07-18 12:31:23}{I did something dreary in corporate land.. .  .    .}{@done}
+{linkedin}{2014-07-19 12:31:23}{I also did something dreary in corporate land.. .  .    .}{@done}
+
