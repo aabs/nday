@@ -4,29 +4,49 @@ using System.Linq;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using log4net;
+using log4net.Config;
+
 
 namespace nday
 {
 	class MainClass
 	{
+		static ILog logger = LogManager.GetLogger (typeof(MainClass));
+
+		static MainClass ()
+		{
+			XmlConfigurator.Configure ();
+		}
+
 		public static void Main (string[] args)
 		{
+			logger.Info ("NDay Running");
+			logger.InfoFormat ("Checking data file at '{0}'", args[0]);
+
 			if (args.Length != 1)
 			{
 				displayUsage ();
 			}
 
+			logger.Debug ("Searching for new entries");
 			var entries = getEntries (args [0]);
+			logger.DebugFormat ("Found {0} entries for insertion", entries.Count ());
 
 			var entriesByDate = entries
 				.GroupBy (x => x.ActivityDate)
 				.ToDictionary (grp => grp.Key, grp => grp.ToList ());
 
+			logger.DebugFormat ("Found entries relating to {0} day(s)", entriesByDate.Count);
+
 			foreach (var entryDate in entriesByDate.Keys)
 			{
+				logger.DebugFormat("processing entries for {0}", entryDate);
+
 				var entriesByOrigin = entriesByDate [entryDate]
 					.GroupBy (x => x.Origin)
 					.ToDictionary (grp => grp.Key, grp => grp.ToList ());
+				logger.DebugFormat("Found entries from {0} origins for {1}", entriesByOrigin.Count, entryDate);
 
 				Process ps = new Process ();
 				ps.StartInfo.UseShellExecute = false;
@@ -39,6 +59,7 @@ namespace nday
 				var log = ps.StandardInput;
 				try
 				{
+					logger.Debug("Writing Entries");
 					foreach (var o in entriesByOrigin.Keys)
 					{
 						log.WriteLine ("\n## Activity on {0}\n", o);
@@ -49,13 +70,14 @@ namespace nday
 					}
 				} catch (Exception ex)
 				{
-					Console.WriteLine (ex.Message);					
+					logger.Error ("error while writing entries", ex);
 				}
-				//var invocation = "-c /usr/local/bin/dayone new < " + args [0] + ".ingest.txt";
-				//Console.WriteLine ("Running " + invocation);
 			}
 
-			File.Move (args [0], args [0] + DateTime.Now.ToString ("s").Replace (':', '_') + ".bak");
+			var bak = args [0] + "." + DateTime.Now.ToString ("s").Replace (':', '_') + ".txt";
+			logger.InfoFormat ("Backing up data file to '{0}'", bak);
+			File.Move (args [0], bak);
+			logger.Info ("Done");
 		}
 
 		static void displayUsage ()
