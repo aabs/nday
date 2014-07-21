@@ -1,17 +1,33 @@
-﻿# ignore this
-<facebook|2014-07-18 12:31:23|I did something very important, honestly!!!|blah, blah blah>
-<facebook|2014-07-19 12:31:23|I also did something very important, honestly!!!|blah, blah blah>
+﻿
+<Entry origin="facebook" date="2014-07-18 12:31:23" tags="blah, blah blah">
+I did something very important, honestly!!!
+</Entry>
+
+<Entry origin="facebook" date="2014-07-19 12:31:23" tags="blah, blah blah">
+I also did something very important, honestly!!!
+</Entry>
 
 # ignore this also
-<tasks|2014-07-18 12:31:23|I did something very important, in wunderlist?|@done>
-<tasks|2014-07-19 12:31:23|I also did something very important, in wunderlist?|@done>
+<Entry origin="tasks" date="2014-07-18 12:31:23" tags="done">
+I did something very important, in wunderlist?
+</Entry>
 
-<linkedin|2014-07-18 12:31:23|I did something dreary in corporate land.. .  .    .|@done>
-<linkedin|2014-07-19 12:31:23|I also did something dreary in corporate land.. .  .    .|@done>
+<Entry origin="tasks" date="2014-07-19 12:31:23" tags="done">
+I also did something very important, in wunderlist?
+</Entry>
 
-<test|2014-07-22| Here is a multi line
+<Entry origin="linkedin" date="2014-07-18 12:31:23" tags="done">
+I did something dreary in corporate land.. .  .    .
+</Entry>
+
+<Entry origin="linkedin" date="2014-07-19 12:31:23" tags="done">
+I also did something dreary in corporate land.. .  .    .
+</Entry>
+
+<Entry origin="test" date="2014-07-22" tags="test">
+Here is a multi line
 activity record
 
 ![containing images](http://blah.com/img.png)
-| test, multiline
->
+
+</Entry>

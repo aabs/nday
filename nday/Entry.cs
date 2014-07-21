@@ -21,7 +21,7 @@ namespace nday
 				this.ActivityDate = DateTime.Now;
 			}
 			this.Activity = activity;
-			this.Tags = tags;
+			this.Tags = (tags ?? "").Split (',').Select ((arg) => arg.Trim ());
 		}
 
 		public string Origin {
@@ -39,7 +39,7 @@ namespace nday
 			set;
 		}
 
-		public string Tags {
+		public IEnumerable<string> Tags {
 			get;
 			set;
 		}
