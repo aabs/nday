@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using log4net;
 using log4net.Config;
+using System.Text;
 
 
 namespace nday
@@ -110,31 +111,94 @@ renamed to show when the import was done. So if your file is called ""activity.t
 then it will be renamed to ""activity.txt-imported20140718.txt"".
 ");
 		}
-
+		enum ParseState{
+			WS, ORIG, D, ACT, TAG
+		}
 		static IEnumerable<Entry> getEntries (string pathToActivityRecord)
 		{
 			var re = new Regex (@"\((?<origin>[^\)]+)\)\((?<date>[^\)]+)\)\((?<activity>[^\)]+)\)\((?<tags>[^\)]+)\)");
-			var lines = File.ReadAllLines (pathToActivityRecord);
-			foreach (var line in lines)
+
+			var s = File.ReadAllText (pathToActivityRecord);
+
+			StringBuilder 
+				sOrigin = new StringBuilder(), 
+				sDate = new StringBuilder(), 
+				sActivity = new StringBuilder(), 
+				sTags = new StringBuilder();
+			int idx = 0;
+			ParseState ps = ParseState.WS;
+			foreach (var c in s)
 			{
-				if (re.IsMatch (line))
+				switch (ps)
 				{
-					MatchCollection matches = re.Matches (line);
-					foreach (Match match in matches)
+				case ParseState.WS:
+					if (c == '<')
 					{
-						GroupCollection groups = match.Groups;
-						var origin = groups ["origin"].Value;
-						var date = groups ["date"].Value;
-						var activity = groups ["activity"].Value;
-						var tags = groups ["tags"].Value;
-						DateTime dt = DateTime.Today;
-						DateTime.TryParse (date, out dt);
-						yield return new Entry (origin, dt.Date, dt, activity, tags);
+						ps = ParseState.ORIG;
 					}
+					break;
+				case ParseState.ORIG:
+					if (c != '|')
+					{
+						sOrigin.Append (c);
+					}
+					else{
+						ps = ParseState.D;
+					}
+					break;
+				case ParseState.D:
+					if (c != '|')
+					{
+						sDate.Append (c);
+					} else
+					{
+						ps = ParseState.ACT;
+					}
+					break;
+				case ParseState.ACT:
+					if (c != '|')
+					{
+						sActivity.Append (c);
+					} else
+					{
+						ps = ParseState.TAG;
+					}
+					break;
+				case ParseState.TAG:
+					if (c != '>')
+					{
+						sTags.Append (c);
+					} else
+					{
+						ps = ParseState.WS;
+						yield return new Entry (sOrigin.ToString (), sDate.ToString (), sActivity.ToString (), sTags.ToString ());
+						sOrigin.Clear ();
+						sDate.Clear ();
+						sActivity.Clear ();
+						sTags.Clear ();
+					}
+					break;
+				default:
+					break;
 				}
 			}
-		}
 
+/*			var lines = File.ReadAllLines (pathToActivityRecord);
+			foreach (var line in lines)
+			{
+				yield return getEntry (line);
+			}
+			*/
+		}
+		static Entry getEntry(string entryLine){
+			// format is:
+			// origin sep datetime sep activity sep tags
+			// where sep == '|'
+			// and tags is a comma separated list of strings
+			var parts = entryLine.Split ('|');
+			Debug.Assert (parts.Length == 4);
+			return new Entry (parts [0], parts [1], parts [2], parts [3]);
+		}
 	}
 
 }

@@ -8,26 +8,28 @@ namespace nday
 
 	class Entry
 	{
-		public Entry (string origin, DateTime date, DateTime time, string activity, string tags)
+		public Entry (string origin, string date, string activity, string tags)
 		{
 			this.Origin = origin;
-			this.ActivityDate = date;
-			this.PreciseTime = time;
+			DateTime dt;
+			if (DateTime.TryParse(date, out dt))
+			{
+				this.ActivityDate = dt;
+			}
+			else
+			{
+				this.ActivityDate = DateTime.Now;
+			}
 			this.Activity = activity;
 			this.Tags = tags;
 		}
-		
+
 		public string Origin {
 			get;
 			set;
 		}
 
 		public DateTime ActivityDate {
-			get;
-			set;
-		}
-
-		public DateTime PreciseTime {
 			get;
 			set;
 		}
