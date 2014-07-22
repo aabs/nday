@@ -1,33 +1,33 @@
 ﻿
-<Entry origin="facebook" date="2014-07-18 12:31:23" tags="blah, blah blah">
+~Entry origin="facebook" date="2014-07-18 12:31:23" tags="blah, blah blah"`
 I did something very important, honestly!!!
-</Entry>
+~/Entry`
 
-<Entry origin="facebook" date="2014-07-19 12:31:23" tags="blah, blah blah">
+~Entry origin="facebook" date="2014-07-19 12:31:23" tags="blah, blah blah"`
 I also did something very important, honestly!!!
-</Entry>
+~/Entry`
 
 # ignore this also
-<Entry origin="tasks" date="2014-07-18 12:31:23" tags="done">
+~Entry origin="tasks" date="2014-07-18 12:31:23" tags="done"`
 I did something very important, in wunderlist?
-</Entry>
+~/Entry`
 
-<Entry origin="tasks" date="2014-07-19 12:31:23" tags="done">
+~Entry origin="tasks" date="2014-07-19 12:31:23" tags="done"`
 I also did something very important, in wunderlist?
-</Entry>
+~/Entry`
 
-<Entry origin="linkedin" date="2014-07-18 12:31:23" tags="done">
+~Entry origin="linkedin" date="2014-07-18 12:31:23" tags="done"`
 I did something dreary in corporate land.. .  .    .
-</Entry>
+~/Entry`
 
-<Entry origin="linkedin" date="2014-07-19 12:31:23" tags="done">
+~Entry origin="linkedin" date="2014-07-19 12:31:23" tags="done"`
 I also did something dreary in corporate land.. .  .    .
-</Entry>
+~/Entry`
 
-<Entry origin="test" date="2014-07-22" tags="test">
+~Entry origin="test" date="2014-07-22" tags="test"`
 Here is a multi line
 activity record
 
 ![containing images](http://blah.com/img.png)
 
-</Entry>
+~/Entry`

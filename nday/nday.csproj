@@ -37,11 +37,22 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="DayOneWriter.cs" />
+    <Compile Include="IEntryReader.cs" />
+    <Compile Include="IEntryWriter.cs" />
+    <Compile Include="XmlEntryReader.cs" />
+    <Compile Include="MarkDownEntryWriter.cs" />
+    <Compile Include="IConfigProvider.cs" />
+    <Compile Include="ConfigProvider.cs" />
+    <Compile Include="IDayOneWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

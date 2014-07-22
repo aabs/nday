@@ -6,7 +6,7 @@ using System.IO;
 namespace nday
 {
 
-	class Entry
+	public class Entry
 	{
 		public Entry (string origin, string date, string activity, string tags)
 		{
